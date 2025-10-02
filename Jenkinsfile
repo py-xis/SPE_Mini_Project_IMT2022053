@@ -104,10 +104,8 @@ pipeline {
             <tr><td><b>Job</b></td><td>${env.JOB_NAME}</td></tr>
             <tr><td><b>Build</b></td><td>#${env.BUILD_NUMBER}</td></tr>
             <tr><td><b>Commit</b></td><td>${env.GIT_SHORT}</td></tr>
-            <tr><td><b>Image</b></td><td>${env.REGISTRY}/${env.DOCKERHUB_USER}/${env.APP_NAME}:${env.GIT_SHORT}</td></tr>
             <tr><td><b>DockerHub</b></td><td><a href="https://hub.docker.com/repository/docker/${env.DOCKERHUB_USER}/${env.APP_NAME}/general">https://hub.docker.com/repository/docker/${env.DOCKERHUB_USER}/${env.APP_NAME}/general</a></td></tr>
           </table>
-          <p>Console log: <a href="${env.BUILD_URL}console">${env.BUILD_URL}console</a></p>
         """
       )
     }
@@ -120,7 +118,6 @@ pipeline {
         body: """
           <h3>Build Failed</h3>
           <p>Check the console log:</p>
-          <p><a href="${env.BUILD_URL}console">${env.BUILD_URL}console</a></p>
         """
       )
     }
