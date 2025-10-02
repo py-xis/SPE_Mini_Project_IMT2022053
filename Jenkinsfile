@@ -105,6 +105,7 @@ pipeline {
             <tr><td><b>Build</b></td><td>#${env.BUILD_NUMBER}</td></tr>
             <tr><td><b>Commit</b></td><td>${env.GIT_SHORT}</td></tr>
             <tr><td><b>Image</b></td><td>${env.REGISTRY}/${env.DOCKERHUB_USER}/${env.APP_NAME}:${env.GIT_SHORT}</td></tr>
+            <tr><td><b>DockerHub</b></td><td><a href="https://hub.docker.com/repository/docker/${env.DOCKERHUB_USER}/${env.APP_NAME}/general">https://hub.docker.com/repository/docker/${env.DOCKERHUB_USER}/${env.APP_NAME}/general</a></td></tr>
           </table>
           <p>Console log: <a href="${env.BUILD_URL}console">${env.BUILD_URL}console</a></p>
         """
