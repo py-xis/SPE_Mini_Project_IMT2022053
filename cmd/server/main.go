@@ -3,6 +3,7 @@ package main
 import (
 	"SPE_MiniProject/internal/fact"
 	"SPE_MiniProject/internal/ln"
+	"SPE_MiniProject/internal/pow"
 	"SPE_MiniProject/internal/sqrt"
 	"fmt"
 )
@@ -52,7 +53,12 @@ func main() {
 			}
 			fmt.Printf("Result: %f\n", result)
 		} else if choice == "4" {
-			fmt.Println("Yet to be Implemented")
+			result, err := pow.Pow()
+			if err != nil {
+				fmt.Printf("Error: %v\n", err)
+				continue
+			}
+			fmt.Printf("Result: %f\n", result)
 		} else if choice == "q" {
 			fmt.Println("Exiting...")
 			break
