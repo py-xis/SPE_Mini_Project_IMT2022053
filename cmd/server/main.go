@@ -1,8 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"SPE_MiniProject/internal/fact"
+	"SPE_MiniProject/internal/ln"
 	"SPE_MiniProject/internal/sqrt"
+	"fmt"
 )
 
 func main() {
@@ -36,9 +38,19 @@ func main() {
 			}
 			fmt.Printf("Result: %f\n", result)
 		} else if choice == "2" {
-			fmt.Println("Yet to be Implemented")
+			result, err := fact.Fact()
+			if err != nil {
+				fmt.Printf("Error: %v\n", err)
+				continue
+			}
+			fmt.Printf("Result: %d\n", result)
 		} else if choice == "3" {
-			fmt.Println("Yet to be Implemented")
+			result, err := ln.Ln()
+			if err != nil {
+				fmt.Printf("Error: %v\n", err)
+				continue
+			}
+			fmt.Printf("Result: %f\n", result)
 		} else if choice == "4" {
 			fmt.Println("Yet to be Implemented")
 		} else if choice == "q" {
