@@ -1,0 +1,24 @@
+# Ignore everything by default
+**
+
+# Allow only Go source and module files
+!go.mod
+!go.sum
+!cmd/**
+!internal/**
+
+# Ignore project-specific stuff
+ansible/
+Jenkinsfile
+*.pdf
+
+# Common ignores
+.git
+.gitignore
+*.log
+*.out
+*.tmp
+*.swp
+.DS_Store
+.vscode/
+.idea/

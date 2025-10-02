@@ -1,0 +1,63 @@
+---
+- name: Deploy SciCalc locally via Docker
+  hosts: local
+  become: false
+  vars:
+    app_name: scicalc
+    registry: docker.io
+    dockerhub_username: your_dockerhub_username   # Jenkins will override
+    deploy_tag: latest                            # Jenkins will override
+    image: "{{ registry }}/{{ dockerhub_username }}/{{ app_name }}:{{ deploy_tag }}"
+  tasks:
+    - name: Validate required variables
+      fail:
+        msg: "dockerhub_username cannot be empty. Please check Jenkins credentials configuration."
+      when: dockerhub_username is undefined or dockerhub_username == "" or dockerhub_username == "your_dockerhub_username"
+
+    - name: Display deployment info
+      debug:
+        msg: 
+          - "Registry: {{ registry }}"
+          - "DockerHub Username: {{ dockerhub_username }}"
+          - "App Name: {{ app_name }}"
+          - "Deploy Tag: {{ deploy_tag }}"
+          - "Full Image: {{ image }}"
+
+    - name: Verify Docker is available
+      shell: docker --version
+      register: docker_check
+      changed_when: false
+
+    - name: Pull the Docker image
+      shell: docker pull "{{ image }}"
+      register: pull_result
+      failed_when: pull_result.rc != 0
+
+    - name: Stop existing container (if running)
+      shell: docker stop "{{ app_name }}"
+      ignore_errors: true
+      register: stop_result
+
+    - name: Remove existing container (if exists)
+      shell: docker rm "{{ app_name }}"
+      ignore_errors: true
+      register: remove_result
+
+    - name: Run new container
+      shell: >
+        docker run -d 
+        --name "{{ app_name }}" 
+        --restart always 
+        -p 8080:8080 
+        "{{ image }}"
+      register: run_result
+      failed_when: run_result.rc != 0
+
+    - name: Verify container is running
+      shell: docker ps --filter "name={{ app_name }}" --format "table {% raw %}{{.Names}}\t{{.Status}}{% endraw %}"
+      register: container_status
+      changed_when: false
+
+    - name: Display container status
+      debug:
+        msg: "Container status: {{ container_status.stdout }}"
