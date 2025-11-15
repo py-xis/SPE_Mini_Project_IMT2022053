@@ -18,7 +18,7 @@ func main() {
         \/     \/           \/     \/          \/ 
 	`
 	fmt.Println(banner)
-	fmt.Println("Welcome to the Scientific Calculator!!")
+	fmt.Println("Welcome to the Scientific Calculator!!!")
 
 	for {
 		fmt.Println("Choose your operation[1, 2, 3, 4]")
